@@ -1,0 +1,85 @@
+package Kviz;
+
+import java.util.ArrayList;
+
+public class Kviz {
+
+    private String nazivKviza;
+    private int IDKviza;
+    private int brojPitanja;
+    private String tacanOdgovor;
+
+
+
+    ArrayList<Pitanja> p = new ArrayList<Pitanja>();
+    ArrayList<Odgovori> o = new ArrayList<Odgovori>();
+    ArrayList<String> ponudeniOdgovori = new ArrayList<String>();
+    ArrayList<Integer> brojOdgovora = new ArrayList<Integer>();
+    ArrayList<Integer> brojBodova =  new ArrayList<Integer>();
+
+
+    public void setNazivKviza(String nazivKviza){
+        this.nazivKviza = nazivKviza;
+    }
+    public int setIDKviza(int IDKviza) {
+            this.IDKviza = IDKviza;
+            return this.IDKviza;
+    }
+    public void setBrojPitanja(int brojPitanja){
+        this.brojPitanja = brojPitanja;
+    }
+    public String getNazivKviza(){
+        return nazivKviza;
+    }
+    public int getIDKviza(){
+        return IDKviza;
+    }
+    public int getBrojPitanja(){
+        return brojPitanja;
+    }
+
+
+    public void setP(ArrayList<Pitanja> p){
+        this.p = p;
+    }
+
+    public ArrayList<Pitanja> getP() {
+        return p;
+    }
+
+    public void setOdgovori(ArrayList<Odgovori> o){
+        this.o = o;
+    }
+
+    public ArrayList<Odgovori> getOdgovori() {
+        return o;
+    }
+    public void setViseOdgovora(String odgovor){
+        this.ponudeniOdgovori.add(odgovor);;
+    }
+    public  ArrayList<String> getViseOdgovora(){
+        return ponudeniOdgovori;
+    }
+    public String setTacanOdgovor(String tacanO){
+        this.tacanOdgovor = tacanO;
+        return this.tacanOdgovor;
+    }
+    public String getTacanOdgovor(){
+        return tacanOdgovor;
+    }
+
+    public void setBrojOdgovora(ArrayList<Integer> brojOdgovora) {
+        this.brojOdgovora = brojOdgovora;
+    }
+
+    public ArrayList<Integer> getBrojOdgovora() {
+        return brojOdgovora;
+    }
+
+    public void setBodovi(ArrayList<Integer> bodovi) {
+        this.brojBodova = bodovi;
+    }
+    public ArrayList<Integer> getBodovi() {
+        return brojBodova;
+    }
+}

@@ -1,0 +1,15 @@
+
+package Kviz;
+
+public class BrojBodova {
+    private int bodovi;
+
+    public void setBodovi(int bodovi) {
+        this.bodovi = bodovi;
+    }
+
+    public int getBodovi() {
+        return bodovi;
+    }
+}
+

@@ -1,0 +1,201 @@
+package Kviz;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        boolean mainLoop = true;
+
+
+        int izbor;
+        int brojPonudeniOdgovora = 0;
+        int trenutniOdgovor = 0;
+        int brojUkupnihBodova = 0;
+        int trenutnoOsvojeniBodovi = 0;
+        ArrayList<Kviz> kvizovi = new ArrayList<Kviz>();
+        ArrayList<Pitanja> p = new ArrayList<Pitanja>();
+        ArrayList<Odgovori> odg = new ArrayList<Odgovori>();
+        ArrayList<String> viseOdgovora = new ArrayList<String>();
+        ArrayList<BrojBodova> bodovi = new ArrayList<BrojBodova>();
+        ArrayList<Integer> brojOdgovora = new ArrayList<Integer>();
+        ArrayList<Integer> brojOsvojenihBodova =  new ArrayList<Integer>();
+
+        while (true) {
+            System.out.println("Unesite akciju:\n");
+            System.out.print("1 - Kreiranje kviza \n");
+            System.out.print("2 - Lista svih dostupnih kvizova\n");
+            System.out.print("3 - Igranje kviza\n");
+            System.out.print("4 - Izlaz\n");
+            izbor = scanner.nextInt();
+
+            switch (izbor) {
+                case 1:
+
+                    Kviz kviz = new Kviz();
+                    System.out.println("Unesite jedinstveni ID kviza" + ":");
+                    kviz.setIDKviza(scanner.nextInt());
+                    scanner.nextLine();
+                    System.out.println("Unesite naziv kviza" + ":");
+                    kviz.setNazivKviza(scanner.nextLine());
+                    System.out.println("Unesite broj pitanja" + ":");
+                    kviz.setBrojPitanja(scanner.nextInt());
+                    scanner.nextLine();
+
+                    for (int brojac = 1; brojac <= kviz.getBrojPitanja(); brojac++) {
+                        System.out.println("Unesite kategoriju pitanja " + brojac + ":");
+                        int unosKategorije = scanner.nextInt();
+                        if (unosKategorije == 1) {
+                            scanner.nextLine();
+                            System.out.println("Unesite sadržaj pitanja " + brojac + ":");
+                            Pitanja pitanja = new Pitanja();
+                            String unosPitanja = scanner.nextLine();
+                            pitanja.setPitanje(unosPitanja);
+                            p.add(pitanja);
+                            kviz.setP(p);
+                            System.out.println("Unesite tačan odgovor za pitanje " + brojac + ":");
+                            Odgovori odgovori = new Odgovori();
+                            String unosOdgovora = scanner.nextLine();
+                            odgovori.setOdgovor(unosOdgovora.toLowerCase().toUpperCase());
+                            odg.add(odgovori);
+                            kviz.setOdgovori(odg);
+                            System.out.println("Unesite broj bodova koji je moguće osvojiti za pitanje " + brojac + ":");
+                            BrojBodova brojBodova = new BrojBodova();
+                            int unosBodova = scanner.nextInt();
+                            scanner.nextLine();
+                            pitanja.setBrojBodova(unosBodova);
+                            brojOsvojenihBodova.add(unosBodova);
+                            kviz.setBodovi(brojOsvojenihBodova);
+                            bodovi.add(brojBodova);
+                            pitanja.setBodovi(bodovi);
+                            brojOdgovora.add(1);
+                            kviz.setBrojOdgovora(brojOdgovora);
+                            System.out.println("Uspješno ste dodali pitanje " + brojac + "!" + "\n");
+                        }
+                        else if (unosKategorije == 2) {
+                            scanner.nextLine();
+                            System.out.println("Unesite sadržaj pitanja " + brojac + ":");
+                            Pitanja pitanja = new Pitanja();
+                            String unos = scanner.nextLine();
+                            pitanja.setPitanje(unos);
+                            p.add(pitanja);
+                            kviz.setP(p);
+                            Odgovori odgovori = new Odgovori();
+                            System.out.println("Unesite broj odgovora za pitanje " + brojac + ":");
+                            int unosBrojOdgovora = scanner.nextInt();
+                            if(unosBrojOdgovora <= 5){
+                                odgovori.setBrojOdgovora(unosBrojOdgovora);
+                                brojOdgovora.add(unosBrojOdgovora);
+                                kviz.setBrojOdgovora(brojOdgovora);
+                                scanner.nextLine();
+                                brojPonudeniOdgovora = odgovori.getBrojOdgovora();
+                            }else if(unosBrojOdgovora > 5){
+                                System.out.println("Maksimalan broj ponuđenih odgovora je 5!\n");
+                                break;
+                            }
+                            for (int i = 1; i <= odgovori.getBrojOdgovora(); i++) {
+                                System.out.println("Unesite odgovor " + i + " za pitanje " + brojac + ":");
+                                String uneseniOdgovor = odgovori.setOdgovor(scanner.nextLine());
+                                String word = "";
+                                if(i == 1){ word = "a)";
+                                } else if(i == 2) {word = "b)";
+                                } else if(i == 3) {word = "c)";
+                                } else if(i == 4) {word = "d)";
+                                } else  {word = "e)";}
+
+                                kviz.setViseOdgovora(word + " "+ uneseniOdgovor);
+                            }
+                            System.out.println("Unesite tačan odgovor za pitanje " + brojac + ":");
+                            String tacanOdgovor = odgovori.setOdgovor(scanner.nextLine());
+                            pitanja.odg.add(odgovori);
+                            kviz.setTacanOdgovor(tacanOdgovor);
+                            System.out.println("Unesite broj bodova koji je moguće osvojiti za pitanje " + brojac + ":");
+                            BrojBodova brojBodova = new BrojBodova();
+                            int unosBodova = scanner.nextInt();
+                            pitanja.setBrojBodova(unosBodova);
+                            brojOsvojenihBodova.add(unosBodova); //add bodove
+                            kviz.setBodovi(brojOsvojenihBodova); //set bodove
+                            bodovi.add(brojBodova);
+                            pitanja.setBodovi(bodovi);
+
+                            System.out.println("Uspješno ste dodali pitanje " + brojac + "!" + "\n");
+                        }
+                        else{
+                            System.out.println("Unijeli ste pogresan broj, mozete unijeti 1 ili 2!\n");
+                        }
+                    }
+                    kvizovi.add(kviz);
+                    for (int i = 0; i < kvizovi.size(); i++) {
+                        System.out.println("Uspješno ste dodali kviz "  + kvizovi.get(i).getNazivKviza() +
+                                "(" + kvizovi.get(i).getIDKviza() + ").");
+                    }
+                    break;
+                case 2:
+                    System.out.println("Kvizovi koji su dostupni: ");
+                    for (int i = 0; i < kvizovi.size(); i++) {
+                        System.out.println("-" + kvizovi.get(i).getNazivKviza() + "(" + kvizovi.get(i).getIDKviza() + ")");
+                    }
+                    break;
+
+                case 3:
+                    BrojBodova brojBodova = new BrojBodova();
+                    System.out.println("Unesite ID kviza koji želite da igrate:");
+                    int kvizID = scanner.nextInt();
+                    for (int i = 0; i < kvizovi.size(); i++) {
+                        if(kvizID == kvizovi.get(i).getIDKviza()) {
+                            System.out.println("Pokrenuli ste kviz " + kvizovi.get(i).getNazivKviza() +
+                                    "(" + kvizovi.get(i).getIDKviza() + ")" +
+                                    ". Maksimalni broj\n" +
+                                    "bodova u ovom kvizu je " +  kvizovi.get(i).getBodovi() + ".");
+                            int duzinaPitanja = kvizovi.get(i).getP().size();
+                            for(int j = 0; j < duzinaPitanja; j++){
+                                int brojPitanja = j+1;
+                                System.out.println("Pitanje " + brojPitanja + ": " + kvizovi.get(i).getP().get(j).getPitanje());
+                                if(kvizovi.get(i).getBrojOdgovora().get(j) != 1){
+                                    int brojOdgovoraPitanja = kvizovi.get(i).getViseOdgovora().size();
+                                    for(int n = 0; n < brojOdgovoraPitanja; n++){
+                                        System.out.println(kvizovi.get(i).getViseOdgovora().get(n));
+                                    }
+                                    String tacanOdgovor = scanner.next().toLowerCase().toUpperCase();
+                                    if(tacanOdgovor.trim().equals(kvizovi.get(i).getTacanOdgovor().trim())){
+                                        System.out.println("Odgovor je tačan!");
+                                        brojUkupnihBodova += kvizovi.get(i).getBodovi().get(j);
+
+                                    }else{
+                                        System.out.println("Odgovor nije tačan, tačan odgovor je pod " + kvizovi.get(i).getTacanOdgovor());
+
+                                    }
+                                    brojPonudeniOdgovora = 0;
+                                }else{
+                                    String unosOdgovoraZaPitanje = scanner.next().toLowerCase().toUpperCase();
+                                    int duzinaOdgovora = kvizovi.get(i).getOdgovori().size();
+                                    for(int k = trenutniOdgovor; k < duzinaOdgovora; k++){
+                                        trenutniOdgovor = k+1;
+                                        if(unosOdgovoraZaPitanje.trim().equals(kvizovi.get(i).getOdgovori().get(k).getOdgovor().trim())){
+                                            System.out.println("Odgovor je tačan! ");
+                                            brojUkupnihBodova += kvizovi.get(i).getBodovi().get(j);
+                                            break;
+                                        }else {
+                                            System.out.println("Odgovor nije tačan, tačan odgovor je " + kvizovi.get(i).getOdgovori().get(k).getOdgovor());
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            System.out.println("Unijeli ste ne postojeci ID!");
+                        }
+                    }
+                    System.out.println("Uspješno ste završili kviz sa osvojenih: " + brojUkupnihBodova + " bodova.");
+                    break;
+
+                case 4:
+                    return;
+            }
+        }
+    }
+}

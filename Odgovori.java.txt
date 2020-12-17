@@ -1,0 +1,23 @@
+package Kviz;
+
+
+public class Odgovori {
+    private String odgovori;
+    private int brojOdgovora;
+
+    public String setOdgovor(String odgovori){
+        this.odgovori = odgovori;
+        return this.odgovori;
+    }
+    public String getOdgovor(){
+        return odgovori;
+    }
+
+    public void setBrojOdgovora(int brojOdgovora) {
+        this.brojOdgovora = brojOdgovora;
+    }
+
+    public int getBrojOdgovora() {
+        return brojOdgovora;
+    }
+}
